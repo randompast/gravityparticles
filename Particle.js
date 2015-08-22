@@ -1,4 +1,4 @@
-var gravity = require('./gravity.js')
+var gravity = require('./gravitationalAcceleration.js')
 
 var Particle = function(p, v, life) {
 	this.pos = p

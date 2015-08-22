@@ -1,5 +1,5 @@
 var ParticleEmitter = require("./ParticleEmitter.js")
-var gravity = require('./gravity.js')
+var gravityAcc = require('./gravitationalAcceleration.js')
 
 var image = new Image()
     image.src = "art/flare.png" //http://opengameart.org/content/flare-effect-blender
@@ -12,12 +12,12 @@ var Player = function(p, v) {
     this.trailer = new ParticleEmitter(  this.pos, 0, 500  )
 }
 
-Player.prototype.update = function(planets, dt, d, ctx){
+Player.prototype.update = function(planets, dt, ctx){
     // var a = planets.map(i => gravity(this.pos, dt, i, d))
     //   .reduce( (a, b) => [ a[0]+b[0],  a[1]+b[1] ] )
     // this.v = [  this.v[0] + dt*a[0], this.v[1] + dt*a[1]  ]
     // this.pos = [this.pos[0]+this.v[0]*dt, this.pos[1]+this.v[1]*dt]
-    this.gravity(dt, planets, d)
+    this.gravity(dt, planets)
 
     this.angle = Math.atan(this.v[0], this.v[1])
     this.trailer.pos = this.pos
@@ -68,7 +68,7 @@ Player.prototype.collisionCircle = function(p, d) {
 }
 
 Player.prototype.gravity = function(dt, planets, d) {
-	var a = planets.map(i => gravity(this.pos, dt, i, d))
+	var a = planets.map(i => gravityAcc(this.pos, dt, i, d))
 		.reduce( (a, b) => [ a[0] + b[0],  a[1] + b[1] ] )
 	this.v = [  this.v[0] + a[0] * dt, this.v[1] + a[1] * dt  ]
 	this.pos = [  this.pos[0] + this.v[0]*dt, this.pos[1] + this.v[1]*dt  ]

@@ -106,5 +106,8 @@ var render = function() {
     endscreen(canvas, ctx, art.spaceFlorida, winstate)
   }
 
+  game.ctx.fillStyle = "white"
+  game.ctx.font = "64px serif"
+  game.ctx.fillText(Math.round(1000/Math.round(dt*game.timestep))+"fps",game.canvas.width-150 ,game.canvas.height-20);
   requestAnimationFrame(render)
 }

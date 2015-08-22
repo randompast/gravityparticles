@@ -1,5 +1,5 @@
 module.exports = [
-  "art/Earth.png" //Bagsby
+  "art/Earth2.png" //Bagsby
   ,"art/Green_Particle.png" //Bagsby
   ,"art/spaceflorida.jpg" //??
 ]
