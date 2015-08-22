@@ -4,9 +4,8 @@ var randV = function(s) {
 	return [  (Math.random()-0.5)*s, (Math.random()-0.5)*s  ]
 }
 
-var ParticleEmitter = function(p, s, count) {
+var ParticleEmitter = function(p, count) {
 	this.pos = p
-	this.speed = s
 	this.alive = true
 	// this.particles = Array.from(Array(count).keys()).map( i => (new Particle(this.pos, randV(this.speed), i)) )
 	this.particles = Array.from(Array(count).keys()).map( i => ({pos: this.pos, vel: randV(this.speed), age: i}) )

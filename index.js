@@ -8,7 +8,7 @@ var keyboardJS = require("keyboardjs")
 
 var fit = require('canvas-fit')
   var canvas = document.body.appendChild(document.createElement('canvas'))
-  window.addEventListener('resize', fit(canvas), false)
+    window.addEventListener('resize', fit(canvas), false)
   var ctx = canvas.getContext('2d')
 
 var Player = require("./Player.js")
@@ -69,11 +69,17 @@ var render = function() {
   var dt = Math.min((Date.now() - game.time)/game.timestep, 60)
   game.time = Date.now()
 
-  renderLevel0(game, dt)
+  game.stars.forEach(i => starsDraw(game.ctx, i))
+
+  game.ctx.save()
+    game.ctx.translate(-game.player.pos[0] + game.canvas.width/2, -game.player.pos[1] + game.canvas.height/2)
+    renderLevel0(game, dt)
+  game.ctx.restore()
 
   //Render frame rate
-    game.ctx.fillStyle = "white"
-    game.ctx.font = "64px serif"
-    game.ctx.fillText(Math.round(1000/Math.round(dt*game.timestep))+"fps",game.canvas.width-150 ,game.canvas.height-20);
+  game.ctx.fillStyle = "white"
+  game.ctx.font = "64px serif"
+  game.ctx.fillText(Math.round(1000/Math.round(dt*game.timestep))+"fps",game.canvas.width-150 ,game.canvas.height-20);
+
   requestAnimationFrame(render)
 }

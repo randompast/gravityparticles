@@ -6,7 +6,7 @@ var EmitterRing = function(r, n, count) {
     for(var i = 0; i < n; i++) {
     	var x = r * Math.cos( 2*Math.PI*i/n )
     	var y = r * Math.sin( 2*Math.PI*i/n )
-    	emitters[i] = new ParticleEmitter(  [x, y], 2, count)
+    	emitters[i] = new ParticleEmitter(  [x, y], count  )
     }
     return emitters
 }
