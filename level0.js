@@ -7,8 +7,8 @@ var planets = [
 
 var level = {
   rings: 5
-  ,emitters: new EmitterRing(280, 40, 50)
-  ,emitters2: new EmitterRing(500, 40, 20)
+  ,emitters: new EmitterRing(280, 10, 10)
+  ,emitters2: new EmitterRing(500, 10, 10)
   ,winmsg: "You Win!"
 }
 
@@ -37,9 +37,6 @@ var renderPlaying = function(g, dt) {
     //   level.winmsg = "You Landed! \\o/"
     // }
 
-    // g.ctx.fillStyle = "white"
-    // g.ctx.font = "64px serif"
-    // g.ctx.fillText(Math.round(1000/Math.round(dt*g.timestep))+"fps",100,100);
   g.ctx.restore()
 }
 

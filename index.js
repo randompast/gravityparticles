@@ -11,15 +11,9 @@ var fit = require('canvas-fit')
   window.addEventListener('resize', fit(canvas), false)
   var ctx = canvas.getContext('2d')
 
-var ParticleEmitter = require("./ParticleEmitter.js")
-var EmitterRing = require("./EmitterRing.js")
 var Player = require("./Player.js")
 
-var img = require("./img.js")
-  var art = {"earth": img(0)
-    ,"greenParticle" : img(1)
-    ,"spaceFlorida" : img(2)}
-  var drawImg = require('./drawImg.js')
+var art = require("./art.js")
 
 var audio = new Audio('art/gravity.mp3')
     audio.loop = true
@@ -40,37 +34,17 @@ var player = new Player([300,0], [0,4])
         player.v[1] += 0.1
     });
 
-// var timestep = 30
-var planets = [
-  {x: 0, y: 0, s:300, m: 500, r:100, artprop : "earth"}
-  , {x: -400, y: 0, s:60, m: 100, r:100, artprop : "greenParticle"}
-  ]
-
-var level = {
-  rings: 5
-  ,emitters: new EmitterRing(300, 5)
-  ,winmsg: "You Win!"
-}
-
-var rings = 5
-var emitters = new EmitterRing(300, 5, 10)
-
-var winstate = "You Win!"
-
 var titlescreen = require("./title.js")
 var endscreen = require("./endscreen.js")
-
 var stars = require("./stars.js")(canvas)
 var starsDraw = require("./starsDraw.js")
-
 
 var game = {
   "canvas": canvas
   , "ctx" : ctx
   , "art" : art
   , "player" : player
-  , "planets" : planets
-  , "stars" : require("./stars.js")(canvas)
+  , "stars" : stars
   , "d" : {} //dummy
   , "timestep" : 30
   , "time" : Date.now()
@@ -95,19 +69,11 @@ var render = function() {
   var dt = Math.min((Date.now() - game.time)/game.timestep, 60)
   game.time = Date.now()
 
-  var length = emitters.filter(i => i.alive === true).length
+  renderLevel0(game, dt)
 
-  if (length > 0 && rings > 0) {
-    renderLevel0(game, dt)
-  } else if (length === 0 && rings > 0) {
-    rings -= 1
-    emitters = new EmitterRing(300, 10)
-  } else {
-    endscreen(canvas, ctx, art.spaceFlorida, winstate)
-  }
-
-  game.ctx.fillStyle = "white"
-  game.ctx.font = "64px serif"
-  game.ctx.fillText(Math.round(1000/Math.round(dt*game.timestep))+"fps",game.canvas.width-150 ,game.canvas.height-20);
+  //Render frame rate
+    game.ctx.fillStyle = "white"
+    game.ctx.font = "64px serif"
+    game.ctx.fillText(Math.round(1000/Math.round(dt*game.timestep))+"fps",game.canvas.width-150 ,game.canvas.height-20);
   requestAnimationFrame(render)
 }

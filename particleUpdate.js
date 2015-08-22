@@ -9,9 +9,11 @@ module.exports = function(pos, particle, dt, planets) {
     if (!collide) {
       return {pos : grav.pos, vel : grav.vel, age : age}
     } else {
-      return {pos : pos, vel : [Math.random()-0.5,Math.random()-0.5], age : 50}      
+      return {pos : pos, vel : [4*(Math.random()-0.5),4*(Math.random()-0.5)], age : 50}
+      // return {pos : pos, vel : [0,0], age : 50}
     }
   } else {
-    return {pos : pos, vel : [Math.random()-0.5,Math.random()-0.5], age : 50}
+    // return {pos : pos, vel : [0,0], age : 50}
+    return {pos : pos, vel : [4*(Math.random()-0.5),4*(Math.random()-0.5)], age : 50}
   }
 }
